@@ -16,7 +16,7 @@ let topics = {
     "Physics": [
         {
             question: "What is the speed of light?",
-            answer: "299792458"
+            answer: "300000000"
         },
         {
             question: "What is the force that opposes motion?",
