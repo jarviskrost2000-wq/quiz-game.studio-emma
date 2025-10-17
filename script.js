@@ -1,0 +1,86 @@
+let topics = {
+    "Math": [
+        {
+            question: "What is 2 + 2?",
+            answer: "4"
+        },
+        {
+            question: "What is 5 * 5?",
+            answer: "25"
+        },
+        {
+            question: "What is 10 / 2?",
+            answer: "5"
+        }
+    ],
+    "Physics": [
+        {
+            question: "What is the speed of light?",
+            answer: "299792458"
+        },
+        {
+            question: "What is the force that opposes motion?",
+            answer: "friction"
+        },
+        {
+            question: "What is the energy of motion?",
+            answer: "kinetic energy"
+        }
+    ],
+    "Biology": [
+        {
+            question: "What is the process by which plants make food?",
+            answer: "photosynthesis"
+        },
+        {
+            question: "What is the largest living structure on Earth?",
+            answer: "great barrier reef"
+        },
+        {
+            question: "What is the scientific term for the study of heredity?",
+            answer: "genetics"
+        }
+    ],
+    "Chemistry": [
+        {
+            question: "What is the symbol for gold?",
+            answer: "au"
+        },
+        {
+            question: "What is the symbol for silver?",
+            answer: "ag"
+        },
+        {
+            question: "What is the process by which atoms gain or lose electrons?",
+            answer: "ionization"
+        }
+    ]
+};
+
+let topic = prompt("Choose a topic: Math, Physics, Biology, Chemistry").toLowerCase();
+
+while (topic !== "math" && topic !== "physics" && topic !== "biology" && topic !== "chemistry") {
+    topic = prompt("Invalid topic. Choose a topic: Math, Physics, Biology, Chemistry").toLowerCase();
+}
+
+let score = 0;
+let questions = topics[topic.charAt(0).toUpperCase() + topic.slice(1)];
+
+for (let i = 0; i < questions.length; i++) {
+    let answer = prompt(questions[i].question);
+    if (answer.toLowerCase() === questions[i].answer.toLowerCase()) {
+        console.log("Correct!");
+        score++;
+    } else {
+        console.log(`Incorrect. The correct answer is ${questions[i].answer}.`);
+    }
+}
+
+console.log(`Your final score is ${score} out of ${questions.length}.`);
+
+
+
+
+
+
+

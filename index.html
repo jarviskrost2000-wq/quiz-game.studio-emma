@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #question {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        #result {
+            font-size: 18px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>Quiz Game</h1>
+    <div id="topic-selection">
+        <h2>Choose a topic:</h2>
+        <button onclick="startQuiz('Math')">Math</button>
+        <button onclick="startQuiz('Physics')">Physics</button>
+        <button onclick="startQuiz('Biology')">Biology</button>
+        <button onclick="startQuiz('Chemistry')">Chemistry</button>
+    </div>
+    <div id="question-container" style="display: none;">
+        <p id="question"></p>
+        <input type="text" id="answer" />
+        <button onclick="checkAnswer()">Submit</button>
+        <p id="result"></p>
+    </div>
+    <div id="final-score" style="display: none;">
+        <h2 id="final-score-text"></h2>
+    </div>
+
+    <script>
+        let topics = {
+            "Math": [
+                { question: "What is 2 + 2?", answer: "4" },
+                { question: "What is 5 * 5?", answer: "25" },
+                { question: "What is 10 / 2?", answer: "5" }
+            ],
+            "Physics": [
+                { question: "What is the speed of light?", answer: "299792458" },
+                { question: "What is the force that opposes motion?", answer: "friction" },
+                { question: "What is the energy of motion?", answer: "kinetic energy" }
+            ],
+            "Biology": [
+                { question: "What is the process by which plants make food?", answer: "photosynthesis" },
+                { question: "What is the largest living structure on Earth?", answer: "great barrier reef" },
+                { question: "What is the scientific term for the study of heredity?", answer: "genetics" }
+            ],
+            "Chemistry": [
+                { question: "What is the symbol for gold?", answer: "au" },
+                { question: "What is the symbol for silver?", answer: "ag" },
+                { question: "What is the process by which atoms gain or lose electrons?", answer: "ionization" }
+            ]
+        };
+
+        let currentTopic;
+        let currentQuestion;
+        let score = 0;
+
+        function startQuiz(topic) {
+            currentTopic = topic;
+            currentQuestion = 0;
+            score = 0;
+            document.getElementById("topic-selection").style.display = "none";
+            document.getElementById("question-container").style.display = "block";
+            askQuestion();
+        }
+
+        function askQuestion() {
+            if (currentQuestion < topics[currentTopic].length) {
+                document.getElementById("question").innerText = topics[currentTopic][currentQuestion].question;
+                document.getElementById("answer").value = "";
+                document.getElementById("result").innerText = "";
+            } else {
+                showFinalScore();
+            }
+        }
+
+        function checkAnswer() {
+            let answer = document.getElementById("answer").value;
+            if (answer.toLowerCase() === topics[currentTopic][currentQuestion].answer.toLowerCase()) {
+                document.getElementById("result").innerText = "Correct!";
+                score++;
+            } else {
+                document.getElementById("result").innerText = `Incorrect. The correct answer is ${topics[currentTopic][currentQuestion].answer}.`;
+            }
+            currentQuestion++;
+            setTimeout(askQuestion, 2000);
+        }
+
+        function showFinalScore() {
+            document.getElementById("question-container").style.display = "none";
+            document.getElementById("final-score").style.display = "block";
+            document.getElementById("final-score-text").innerText = `Your final score is ${score} out of ${topics[currentTopic].length}.`;
+        }
+    </script>
+</body>
+</html>
+
+
