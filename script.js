@@ -76,7 +76,7 @@ for (let i = 0; i < questions.length; i++) {
  }
 }
 console.log('Your Score is ${score}');
-if (score==3){
+if (score==questions.length){
 console.log('Excellent');
 }else{
 console.log('Nice Try!');
