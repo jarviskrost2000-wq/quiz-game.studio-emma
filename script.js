@@ -67,7 +67,7 @@ let score = 0;
 let questions = topics[topic.charAt(0).toUpperCase() + topic.slice(1)];
 
 for (let i = 0; i < questions.length; i++) {
-    let answer = prompt(questions[i].question);
+    let answer = prompt(questions[i].question).trim();
     if (answer.toLowerCase() === questions[i].answer.toLowerCase()) {
         console.log("Correct!");
         score++;
