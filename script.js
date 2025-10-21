@@ -1,4 +1,4 @@
-let topics = {
+ topics = {
     "Math": [
         {
             question: "What is 2 + 2?",
@@ -75,11 +75,11 @@ for (let i = 0; i < questions.length; i++) {
         console.log(`Incorrect. The correct answer is ${questions[i].answer}.`);
  }
 }
-console.log('Your Score is ${score}');
+
 if (score==questions.length){
-console.log('Excellent');
+console.log('Excellent you got ${score} out of ${questions.length}');
 }else{
-console.log('Nice Try!');
+console.log('Nice Try! you got ${score} out of ${questions.length);
 }
 
 
