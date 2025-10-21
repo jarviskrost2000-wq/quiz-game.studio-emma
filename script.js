@@ -73,14 +73,13 @@ for (let i = 0; i < questions.length; i++) {
         score++;
     } else {
         console.log(`Incorrect. The correct answer is ${questions[i].answer}.`);
-    }
-if score===3{
+ }
+}
+if (score===3){
 console.log('Excellent');
 }else{
 console.log('Nice Try!');
 }
-}
-
 console.log(`Your final score is ${score} out of ${questions.length}.`);
 
 
