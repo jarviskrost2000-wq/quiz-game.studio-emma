@@ -3,52 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quiz Game</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-    }
-    #question {
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 20px;
-    }
-    #result {
-      font-size: 18px;
-      color: #666;
-    }
-    .math {
-      background-color: #ADD8E6; /* Light blue */
-    }
-    .physics {
-      background-color: #FFC080; /* Light orange */
-    }
-    .biology {
-      background-color: #C6F4D6; /* Light green */
-    }
-    .chemistry {
-      background-color: #FFB6C1; /* Light red */
-    }
-  </style>
+  <title>Quiz</title>
 </head>
 <body>
-  <h1>Quiz Game</h1>
-  <div id="topic-selection">
-    <h2>Choose a topic:</h2>
-    <button onclick="startQuiz('Math')">Math</button>
-    <button onclick="startQuiz('Physics')">Physics</button>
-    <button onclick="startQuiz('Biology')">Biology</button>
-    <button onclick="startQuiz('Chemistry')">Chemistry</button>
-  </div>
-  <div id="question-container" style="display: none;">
-    <p id="question"></p>
-    <input type="text" id="answer" />
-    <button onclick="checkAnswer()">Submit</button>
-    <p id="result"></p>
-  </div>
-  <div id="final-score" style="display: none;">
-    <h2 id="final-score-text"></h2>
-  </div>
   <script>
     let topics = {
       "Math": [
@@ -72,46 +29,29 @@
         { question: "What is the process by which atoms gain or lose electrons?", answer: "ionization" }
       ]
     };
-    let currentTopic;
-    let currentQuestion;
+    let topic = prompt("Choose a topic: Math, Physics, Biology, Chemistry").toLowerCase();
+    while (topic !== "math" && topic !== "physics" && topic !== "biology" && topic !== "chemistry") {
+      topic = prompt("Invalid topic. Choose a topic: Math, Physics, Biology, Chemistry").toLowerCase();
+    }
     let score = 0;
-    function startQuiz(topic) {
-      currentTopic = topic;
-      currentQuestion = 0;
-      score = 0;
-      document.getElementById("topic-selection").style.display = "none";
-      document.getElementById("question-container").style.display = "block";
-      document.body.className = topic.toLowerCase();
-      askQuestion();
-    }
-    function askQuestion() {
-      if (currentQuestion < topics[currentTopic].length) {
-        document.getElementById("question").innerText = topics[currentTopic][currentQuestion].question;
-        document.getElementById("answer").value = "";
-        document.getElementById("result").innerText = "";
-      } else {
-        showFinalScore();
-      }
-    }
-    function checkAnswer() {
-      let answer = document.getElementById("answer").value;
-      if (answer.toLowerCase() === topics[currentTopic][currentQuestion].answer.toLowerCase()) {
-        document.getElementById("result").innerText = "Correct!";
+    let questions = topics[topic.charAt(0).toUpperCase() + topic.slice(1)];
+    for (let i = 0; i < questions.length; i++) {
+      let answer = prompt(questions[i].question);
+      if (answer.toLowerCase() === questions[i].answer.toLowerCase()) {
+        alert("Correct!");
         score++;
       } else {
-        document.getElementById("result").innerText = `Incorrect. The correct answer is ${topics[currentTopic][currentQuestion].answer}.`;
+        alert(`Incorrect. The correct answer is ${questions[i].answer}.`);
       }
-      currentQuestion++;
-      setTimeout(askQuestion, 2000);
     }
-    function showFinalScore() {
-      document.getElementById("question-container").style.display = "none";
-      document.getElementById("final-score").style.display = "block";
-      document.getElementById("final-score-text").innerText = `Your final score is ${score}`;
-      document.body.className = "";
+    if (score === questions.length) {
+      alert(`Excellent you got ${score} out of ${questions.length}`);
+    } else {
+      alert(`Nice Try! you got ${score} out of ${questions.length}`);
     }
   </script>
 </body>
 </html>
+
 
 
