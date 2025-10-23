@@ -1,91 +1,98 @@
- topics = {
-    "Math": [
-        {
-            question: "What is 2 + 2?",
-            answer: "4"
-        },
-        {
-            question: "What is 5 * 5?",
-            answer: "25"
-        },
-        {
-            question: "What is 10 / 2?",
-            answer: "5"
-        }
-    ],
-    "Physics": [
-        {
-            question: "What is the speed of light?",
-            answer: "300000000"
-        },
-        {
-            question: "What is the force that opposes motion?",
-            answer: "friction"
-        },
-        {
-            question: "What is the energy of motion?",
-            answer: "kinetic energy"
-        }
-    ],
-    "Biology": [
-        {
-            question: "What is the process by which plants make food?",
-            answer: "photosynthesis"
-        },
-        {
-            question: "What is the largest living structure on Earth?",
-            answer: "great barrier reef"
-        },
-        {
-            question: "What is the scientific term for the study of heredity?",
-            answer: "genetics"
-        }
-    ],
-    "Chemistry": [
-        {
-            question: "What is the symbol for gold?",
-            answer: "au"
-        },
-        {
-            question: "What is the symbol for silver?",
-            answer: "ag"
-        },
-        {
-            question: "What is the process by which atoms gain or lose electrons?",
-            answer: "ionization"
-        }
-    ]
-};
+// Select buttons and score display
+const nextBtn = document.getElementById('nextbtn');
+const previousBtn = document.getElementById('previousbtn');
+const quizButtons = document.getElementById('quizButtons');
+const scoreDisplay = document.getElementById('scoreDisplay');
 
-let topic = prompt("Choose a topic: Math, Physics, Biology, Chemistry").toLowerCase();
+// Create subject buttons
+const mathBtn = document.createElement('button');
+mathBtn.textContent = 'Math';
+mathBtn.id = 'mathbtn';
 
-while (topic !== "math" && topic !== "physics" && topic !== "biology" && topic !== "chemistry") {
-    topic = prompt("Invalid topic. Choose a topic: Math, Physics, Biology, Chemistry").toLowerCase();
-}
+const bioBtn = document.createElement('button');
+bioBtn.textContent = 'Biology';
+bioBtn.id = 'biobtn';
 
+quizButtons.appendChild(mathBtn);
+quizButtons.appendChild(bioBtn);
+
+// Questions
+const mathQuestions = [
+  { question: 'What is 15 * 10?', answer: '150' },
+  { question: 'What is 105 / 5?', answer: '21' },
+];
+
+const bioQuestions = [
+  { question: 'Orange is what type of fruit?', answer: 'berry' },
+  { question: 'Coconut is what type of fruit?', answer: 'drupe' },
+];
+
+let currentQuestions = [];
+let currentIndex = 0;
 let score = 0;
-let questions = topics[topic.charAt(0).toUpperCase() + topic.slice(1)];
 
-for (let i = 0; i < questions.length; i++) {
-    let answer = prompt(questions[i].question).trim();
-    if (answer.toLowerCase() === questions[i].answer.toLowerCase()) {
-        console.log("Correct!");
-        score++;
-    } else {
-        console.log(`Incorrect. The correct answer is ${questions[i].answer}.`);
- }
+// Elements for displaying questions
+const questionBox = document.createElement('h2');
+document.body.insertBefore(questionBox, nextBtn);
+
+// Function to display a question
+function showQuestion() {
+  if (currentIndex < currentQuestions.length) {
+    questionBox.textContent = currentQuestions[currentIndex].question;
+    scoreDisplay.textContent = `Question ${currentIndex + 1} of ${currentQuestions.length}`;
+  } else {
+    questionBox.textContent = `🎯 Quiz Completed! Your final score is ${score}/${currentQuestions.length}`;
+    scoreDisplay.textContent = '';
+  }
 }
 
-if (score==questions.length){
-console.log('Excellent you got ${score} out of ${questions.length}');
-}else{
-console.log('Nice Try! you got ${score} out of ${questions.length);
+// Function to handle answering a question
+function answerQuestion() {
+  const userAnswer = prompt('Enter your answer:').trim().toLowerCase();
+  const correctAnswer = String(currentQuestions[currentIndex].answer).toLowerCase();
+  if (userAnswer === correctAnswer) {
+    alert('✅ Correct!');
+    score++;
+  } else {
+    alert(`❌ Wrong! The correct answer is ${currentQuestions[currentIndex].answer}`);
+  }
+  currentIndex++;
+  showQuestion();
 }
 
+// Event listeners for subjects
+mathBtn.addEventListener('click', function () {
+  currentQuestions = mathQuestions;
+  currentIndex = 0;
+  score = 0;
+  showQuestion();
+});
 
+bioBtn.addEventListener('click', function () {
+  currentQuestions = bioQuestions;
+  currentIndex = 0;
+  score = 0;
+  showQuestion();
+});
 
+// Next and previous navigation
+nextBtn.addEventListener('click', function () {
+  if (currentQuestions.length === 0) {
+    alert('Select a subject first!');
+    return;
+  }
+  if (currentIndex < currentQuestions.length) {
+    answerQuestion();
+  } else {
+    alert('Quiz already completed!');
+  }
+});
 
-
-
-
-
+previousBtn.addEventListener('click', function () {
+  if (currentIndex > 0) {
+    currentIndex--;
+    showQuestion();
+  } else {
+    alert('No previous question!');
+  }
+});
